@@ -18,18 +18,39 @@ export async function GET() {
         const worst = get_worst_performer.rows[0]
         console.log(best);
     
-        const diverse_res = await db.query(`
-        SELECT 
-            COUNT(DISTINCT sector) AS sectors,
-            COUNT(DISTINCT market_cap) AS market_caps 
+       const sectorRes = await db.query(`
+        SELECT sector, SUM(value) as total
         FROM holdings
+        GROUP BY sector
         `);
-    
-        const sectors = parseInt(diverse_res.rows[0].sectors);
-        const marketCaps = parseInt(diverse_res.rows[0].market_caps);
-    
-        const rawScore = (sectors + marketCaps) * 1.5;
-        const diversificationScore = Math.min(10, rawScore);
+        const marketCapRes = await db.query(`
+        SELECT market_cap, SUM(value) as total
+        FROM holdings
+        GROUP BY market_cap
+        `);
+        const totalValueNum = parseFloat(totalValue.rows[0].total_value);
+
+        // Helper to calculate HHI
+        function calcHHI(groups: any[]) {
+        return groups.reduce((sum, row) => {
+            const share = parseFloat(row.total) / totalValueNum;
+            return sum + share * share;
+        }, 0);
+        }
+
+        const sectorHHI = calcHHI(sectorRes.rows);
+        const marketCapHHI = calcHHI(marketCapRes.rows);
+
+        // Combine HHI (average, or weight as you like)
+        const avgHHI = (sectorHHI + marketCapHHI) / 2;
+
+        // Convert HHI to diversification score (lower HHI = higher score)
+        // HHI ranges from 1/N (perfect diversification) to 1 (all in one group)
+        const minHHI = 0.1; // Assume at least 10 groups for scaling
+        const maxHHI = 1.0;
+        const diversificationScore = Math.round(
+        10 * (1 - (avgHHI - minHHI) / (maxHHI - minHHI))
+        );
     
         let riskLevel = "Moderate";
     

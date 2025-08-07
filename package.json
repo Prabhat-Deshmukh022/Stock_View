@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@tanstack/react-table": "^8.21.3",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "date-fns": "^4.1.0",
@@ -19,7 +20,8 @@
     "react-dom": "19.1.0",
     "react-icons": "^5.5.0",
     "recharts": "^3.1.2",
-    "tailwind-merge": "^3.3.1"
+    "tailwind-merge": "^3.3.1",
+    "use-debounce": "^10.0.5"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
