@@ -46,7 +46,7 @@ DATABASE_URL=postgresql://username:password@host:port/database
 npm run dev
 ```
 
-Open [http://localhost:3000/dashboard](http://localhost:3000/dashboard) in your browser.
+Open [http://localhost:3000](http://localhost:3000) in your browser.
 
 ---
 
@@ -116,6 +116,7 @@ The app expects the following tables and columns:
 - **Database connection** is managed in `db/db.ts` using the `pg` library.
 - **Debounced search** in holdings table for performance.
 - **Diversification score** is dynamically calculated using the Herfindahl-Hirschman Index (HHI) for both sector and market cap distribution.
+- I have made use of ChatGPT and GitHub copilot when encountering deadends, it has helped greatly, learning new techniques to fulfill various functionality in building the website.
 
 ---
 
