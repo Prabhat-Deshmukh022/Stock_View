@@ -121,7 +121,7 @@ The app expects the following tables and columns:
 
 ## Acknowledgements
 
-- [WealthManager online]([https://nextjs.org/](https://www.wealthmanager.online/))
+- [WealthManager online](https://www.wealthmanager.online/)
 - [Tailwind CSS](https://tailwindcss.com/)
 - [Recharts](https://recharts.org/)
-- [Supabase](https://supabase.com/) (if using their hosted
+- [Supabase](https://supabase.com/) 
